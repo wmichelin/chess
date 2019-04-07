@@ -1,10 +1,12 @@
 import React from 'react';
+
 import './index.css';
+import { Piece } from '../Piece';
 
 interface Props {
-    children?: React.ReactChildren | string;
     x: number;
     y: number;
+    piece: Nullable<Piece>;
 }
 
 const DARK_MODE_CLASS_NAME = 'board-space';
@@ -18,7 +20,7 @@ const getClassName = ({ x, y }: Props): string => {
 
 const BoardSpace = (props: Props) => (
     <div className={ getClassName(props) }>
-        { props.children }
+        { props.piece && props.piece.render() }
     </div>
 );
 

@@ -1,0 +1,4 @@
+.board__column {
+    vertical-align: top;
+    display: inline-block;
+}
