@@ -1,0 +1,19 @@
+.board-space, .board-space--dark-mode {
+    height: 42px;
+    width: 42px;
+    border: 1px solid green;
+    color: orange;
+    cursor: pointer;
+}
+
+.board-space:hover, .board-space--dark-mode:hover {
+    color: black;
+}
+
+.board-space {
+    background-color: white;
+}
+
+.board-space--dark-mode {
+    background-color: gray;
+}
