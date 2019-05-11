@@ -3,50 +3,63 @@ import React from 'react';
 import BoardSpace from '../BoardSpace';
 import {
     Piece,
-    getPiece
 } from '../Piece';
 import './index.css';
+import {
+    Game,
+    getGame,
+    GameType,
+} from "../../models/Game";
+
 
 type BoardState = { [k: string]: Piece; }
 
 interface Props {
-    rows: number;
-    columns: number;
+    gameType: GameType;
 }
 
 const CLASSNAME = 'board__column';
 
-class Board extends React.Component<Props> {
-    pieces: BoardState;
+interface ComponentState {
+    activePiece: Piece | null;
+}
+
+class Board extends React.Component<Props, ComponentState> {
+    game: Game;
+    rows: number;
+    columns: number;
 
     constructor(props: Props) {
         super(props);
+        this.game = getGame(this.props.gameType);
+        this.rows = this.game.getRows();
+        this.columns = this.game.getColumns();
 
-        this.pieces = {
-            [this.getCoordinateKey(0, 1)]: getPiece(),
-            [this.getCoordinateKey(1, 1)]: getPiece(),
+        this.state = {
+            activePiece: this.game.getActivePiece(),
         };
     }
 
-    getCoordinateKey(x: number, y: number): string {
-        return `[${ x }, ${ y }]`;
-    }
-
-    getPiece(x: number, y: number): Nullable<Piece> {
-        return this.pieces[this.getCoordinateKey(x, y)] || null;
-    }
+    setActivePiece = (x: number, y: number) => {
+        this.game.setActivePiece(x, y);
+        this.setState({
+            activePiece: this.game.getActivePiece(),
+        });
+    };
 
     getBoard() {
         const board = [];
-        for (let x = 0; x < this.props.columns; x++) {
+        for (let x = 0; x < this.columns; x++) {
             const row = [];
-            for (let y = 0; y < this.props.rows; y++) {
+            for (let y = 0; y < this.rows; y++) {
                 row.push(
                     <BoardSpace
-                        key={ this.getCoordinateKey(x, y) }
+                        key={ this.game.getCoordinateKey(x, y) }
                         x={ x }
                         y={ y }
-                        piece={ this.getPiece(x, y) }
+                        piece={ this.game.getPiece(x, y) }
+                        isActive={ this.game.isValidDest(x, y) }
+                        onClick={ () => this.setActivePiece(x, y) }
                     />
                 );
             }

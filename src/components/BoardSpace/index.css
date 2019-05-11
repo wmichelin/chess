@@ -1,3 +1,4 @@
+/* all boardspace styles */
 .board-space, .board-space--dark-mode {
     height: 42px;
     width: 42px;
@@ -6,10 +7,17 @@
     cursor: pointer;
 }
 
+/* hover styles */
 .board-space:hover, .board-space--dark-mode:hover {
     color: black;
 }
 
+/* active space styles */
+.board-space.board-space--active, .board-space--dark-mode.board-space--dark-mode--active {
+    background-color: purple;
+}
+
+/* specific space styles */
 .board-space {
     background-color: white;
 }
