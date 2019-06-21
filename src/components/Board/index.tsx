@@ -40,7 +40,7 @@ class Board extends React.Component<Props, ComponentState> {
         };
     }
 
-    setActivePiece = (x: number, y: number) => {
+    onSpaceClicked = (x: number, y: number) => {
         this.game.setActivePiece(x, y);
         this.setState({
             activePiece: this.game.getActivePiece(),
@@ -59,7 +59,7 @@ class Board extends React.Component<Props, ComponentState> {
                         y={ y }
                         piece={ this.game.getPiece(x, y) }
                         isActive={ this.game.isValidDest(x, y) }
-                        onClick={ () => this.setActivePiece(x, y) }
+                        onClick={ () => this.onSpaceClicked(x, y) }
                     />
                 );
             }
